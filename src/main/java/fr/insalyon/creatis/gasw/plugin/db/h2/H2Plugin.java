@@ -34,6 +34,7 @@
  */
 package fr.insalyon.creatis.gasw.plugin.db.h2;
 
+import fr.insalyon.creatis.gasw.GaswConfiguration;
 import fr.insalyon.creatis.gasw.GaswException;
 import fr.insalyon.creatis.gasw.plugin.DatabasePlugin;
 import net.xeoh.plugins.base.annotations.PluginImplementation;
@@ -72,7 +73,9 @@ public class H2Plugin implements DatabasePlugin {
 
         if (conf.isServerEnabled()) {
             return "jdbc:h2:tcp://" + conf.getServerHost() + ":" 
-                    + conf.getServerPort() + "/" + conf.getDbPath();
+                    + conf.getServerPort() + "/" 
+                    + GaswConfiguration.getInstance().getExecutionPath() 
+                    + "/"+ conf.getDbPath() + ";create=true";
         } else {
             return "jdbc:h2:" + conf.getDbPath();
         }
