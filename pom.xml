@@ -76,10 +76,19 @@
             <scope>provided</scope>
         </dependency>
 
+        <!--
+            Version 1.4.197 does not work.  It is built with
+            multi-release, meaning there exists a class compiled for
+            java 9 that the JRE does not load by default in Java 8.
+            BUT a custom class loader seems to be used, in library
+            jspf.core, which does not support this feature.
+
+            So we stick to version 1.4.196.
+        -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.197</version>
+            <version>1.4.196</version>
         </dependency>
 
     </dependencies>
