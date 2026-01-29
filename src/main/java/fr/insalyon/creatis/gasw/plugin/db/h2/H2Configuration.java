@@ -38,7 +38,8 @@ import fr.insalyon.creatis.gasw.GaswConfiguration;
 import fr.insalyon.creatis.gasw.GaswException;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -46,7 +47,7 @@ import org.apache.log4j.Logger;
  */
 public class H2Configuration {
 
-    private static final Logger logger = Logger.getLogger("fr.insalyon.creatis.gasw");
+    private static final Logger logger = LoggerFactory.getLogger(H2Configuration.class);
     private static H2Configuration instance;
     private String schema;
     private String user;
@@ -88,7 +89,7 @@ public class H2Configuration {
             config.save();
 
         } catch (ConfigurationException ex) {
-            logger.error(ex);
+            logger.error("Error occured during configuration", ex);
         }
     }
 
