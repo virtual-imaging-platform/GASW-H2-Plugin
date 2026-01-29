@@ -75,7 +75,7 @@ public class H2Plugin implements DatabasePlugin {
             return "jdbc:h2:tcp://" + conf.getServerHost() + ":" 
                     + conf.getServerPort() + "/" 
                     + GaswConfiguration.getInstance().getExecutionPath() 
-                    + "/"+ conf.getDbPath() + ";create=true;MVCC=TRUE";
+                    + "/"+ conf.getDbPath() + ";IFEXISTS=FALSE";
         } else {
             return "jdbc:h2:" + conf.getDbPath();
         }
