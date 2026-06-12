@@ -34,64 +34,38 @@
  */
 package fr.insalyon.creatis.gasw.plugin.db.h2;
 
-import fr.insalyon.creatis.gasw.GaswConfiguration;
-import fr.insalyon.creatis.gasw.GaswException;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  *
  * @author Rafael Silva
  */
+@Configuration
+@PropertySource("classpath:application.properties")
 public class H2Configuration {
 
-    private static final Logger logger = LoggerFactory.getLogger(H2Configuration.class);
-    private static H2Configuration instance;
+    @Value("${plugin.h2.schema}")
     private String schema;
+
+    @Value("${plugin.h2.user}")
     private String user;
+
+    @Value("${plugin.h2.password}")
     private String password;
+
+    @Value("${plugin.h2.server.enabled}")
     private boolean serverEnabled;
+
+    @Value("${plugin.h2.server.host}")
     private String serverHost;
+
+    @Value("${plugin.h2.server.port}")
     private int serverPort;
+
+    @Value("${plugin.h2.db.path}")
     private String dbPath;
-
-    public static H2Configuration getInstance() throws GaswException {
-
-        if (instance == null) {
-            instance = new H2Configuration();
-        }
-        return instance;
-    }
-
-    private H2Configuration() throws GaswException {
-
-        try {
-            PropertiesConfiguration config = GaswConfiguration.getInstance().getPropertiesConfiguration();
-
-            schema = config.getString(H2Constants.LAB_SCHEMA, "PUBLIC");
-            user = config.getString(H2Constants.LAB_USER, "test");
-            password = config.getString(H2Constants.LAB_PASSWORD, "");
-            serverEnabled = config.getBoolean(H2Constants.LAB_SERVER_ENABLED, false);
-            serverHost = config.getString(H2Constants.LAB_SERVER_HOST, "localhost");
-            serverPort = config.getInt(H2Constants.LAB_SERVER_PORT, 9092);
-            dbPath = config.getString(H2Constants.LAB_DB_PATH, "~/.gasw/db");
-
-            config.setProperty(H2Constants.LAB_SCHEMA, schema);
-            config.setProperty(H2Constants.LAB_USER, user);
-            config.setProperty(H2Constants.LAB_PASSWORD, password);
-            config.setProperty(H2Constants.LAB_SERVER_ENABLED, serverEnabled);
-            config.setProperty(H2Constants.LAB_SERVER_HOST, serverHost);
-            config.setProperty(H2Constants.LAB_SERVER_PORT, serverPort);
-            config.setProperty(H2Constants.LAB_DB_PATH, dbPath);
-
-            config.save();
-
-        } catch (ConfigurationException ex) {
-            logger.error("Error occured during configuration", ex);
-        }
-    }
 
     public String getSchema() {
         return schema;
