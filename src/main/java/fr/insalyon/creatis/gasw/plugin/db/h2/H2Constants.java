@@ -41,7 +41,6 @@ package fr.insalyon.creatis.gasw.plugin.db.h2;
 public class H2Constants {
 
     public static final String PLUGIN_NAME = "H2 Database";
-    public static final String ENTITY_PACKAGE = "fr.insalyon.creatis.gasw.plugin.db.h2";
     public static final String HIBERNATE_DIALECT = "org.hibernate.dialect.H2Dialect";
     public static final String H2_DRIVER = "org.h2.Driver";
 }

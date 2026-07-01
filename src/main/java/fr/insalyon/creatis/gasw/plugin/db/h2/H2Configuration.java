@@ -43,7 +43,7 @@ import org.springframework.context.annotation.PropertySource;
  * @author Rafael Silva
  */
 @Configuration
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:h2-plugin.properties")
 public class H2Configuration {
 
     @Value("${plugin.h2.schema}")

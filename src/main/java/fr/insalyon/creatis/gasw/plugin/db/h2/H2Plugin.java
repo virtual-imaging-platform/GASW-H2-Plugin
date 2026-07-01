@@ -35,7 +35,6 @@
 package fr.insalyon.creatis.gasw.plugin.db.h2;
 
 import fr.insalyon.creatis.gasw.GaswConfiguration;
-import fr.insalyon.creatis.gasw.GaswException;
 import fr.insalyon.creatis.gasw.plugin.DatabasePlugin;
 import org.springframework.stereotype.Service;
 
@@ -60,23 +59,17 @@ public class H2Plugin implements DatabasePlugin {
     }
 
     @Override
-    public String getEntityPackage() {
-        return H2Constants.ENTITY_PACKAGE;
-    }
-
-    @Override
-    public String getSchema() throws GaswException {
+    public String getSchema() {
         return h2Configuration.getSchema();
     }
 
     @Override
-    public String getDriverClass() throws GaswException {
+    public String getDriverClass() {
         return H2Constants.H2_DRIVER;
     }
 
     @Override
-    public String getConnectionUrl() throws GaswException {
-
+    public String getConnectionUrl() {
         if (h2Configuration.isServerEnabled()) {
             return "jdbc:h2:tcp://" + h2Configuration.getServerHost() + ":"
                     + h2Configuration.getServerPort() + "/"
@@ -88,17 +81,17 @@ public class H2Plugin implements DatabasePlugin {
     }
 
     @Override
-    public String getHibernateDialect() throws GaswException {
+    public String getHibernateDialect() {
         return H2Constants.HIBERNATE_DIALECT;
     }
 
     @Override
-    public String getUserName() throws GaswException {
+    public String getUserName() {
         return h2Configuration.getUser();
     }
 
     @Override
-    public String getPassword() throws GaswException {
+    public String getPassword() {
         return h2Configuration.getPassword();
     }
 }
