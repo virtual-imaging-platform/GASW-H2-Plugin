@@ -35,16 +35,23 @@
 package fr.insalyon.creatis.gasw.plugin.db.h2;
 
 import fr.insalyon.creatis.gasw.GaswConfiguration;
-import fr.insalyon.creatis.gasw.GaswException;
 import fr.insalyon.creatis.gasw.plugin.DatabasePlugin;
-import net.xeoh.plugins.base.annotations.PluginImplementation;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Rafael Silva
  */
-@PluginImplementation
+@Service
 public class H2Plugin implements DatabasePlugin {
+
+    private final H2Configuration h2Configuration;
+    private final GaswConfiguration gaswConfiguration;
+
+    public H2Plugin(H2Configuration h2Configuration, GaswConfiguration gaswConfiguration) {
+        this.h2Configuration = h2Configuration;
+        this.gaswConfiguration = gaswConfiguration;
+    }
 
     @Override
     public String getName() {
@@ -52,47 +59,39 @@ public class H2Plugin implements DatabasePlugin {
     }
 
     @Override
-    public void load() throws GaswException {
-        H2Configuration.getInstance();
+    public String getSchema() {
+        return h2Configuration.getSchema();
     }
 
     @Override
-    public String getSchema() throws GaswException {
-        return H2Configuration.getInstance().getSchema();
+    public String getDriverClass() {
+        return H2Constants.H2_DRIVER;
     }
 
     @Override
-    public String getDriverClass() throws GaswException {
-        return "org.h2.Driver";
-    }
-
-    @Override
-    public String getConnectionUrl() throws GaswException {
-
-        H2Configuration conf = H2Configuration.getInstance();
-
-        if (conf.isServerEnabled()) {
-            return "jdbc:h2:tcp://" + conf.getServerHost() + ":" 
-                    + conf.getServerPort() + "/" 
-                    + GaswConfiguration.getInstance().getExecutionPath() 
-                    + "/"+ conf.getDbPath();
+    public String getConnectionUrl() {
+        if (h2Configuration.isServerEnabled()) {
+            return "jdbc:h2:tcp://" + h2Configuration.getServerHost() + ":"
+                    + h2Configuration.getServerPort() + "/"
+                    + gaswConfiguration.getExecutionPath()
+                    + "/"+ h2Configuration.getDbPath();
         } else {
-            return "jdbc:h2:" + conf.getDbPath();
+            return "jdbc:h2:" + h2Configuration.getDbPath();
         }
     }
 
     @Override
-    public String getHibernateDialect() throws GaswException {
-        return "org.hibernate.dialect.H2Dialect";
+    public String getHibernateDialect() {
+        return H2Constants.HIBERNATE_DIALECT;
     }
 
     @Override
-    public String getUserName() throws GaswException {
-        return H2Configuration.getInstance().getUser();
+    public String getUserName() {
+        return h2Configuration.getUser();
     }
 
     @Override
-    public String getPassword() throws GaswException {
-        return H2Configuration.getInstance().getPassword();
+    public String getPassword() {
+        return h2Configuration.getPassword();
     }
 }

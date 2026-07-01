@@ -41,12 +41,6 @@ package fr.insalyon.creatis.gasw.plugin.db.h2;
 public class H2Constants {
 
     public static final String PLUGIN_NAME = "H2 Database";
-    // Configuration Labels
-    public static final String LAB_DB_PATH = "plugin.h2.db.path";
-    public static final String LAB_PASSWORD = "plugin.h2.password";
-    public static final String LAB_SCHEMA = "plugin.h2.schema";
-    public static final String LAB_SERVER_ENABLED = "plugin.h2.server.enabled";
-    public static final String LAB_SERVER_HOST = "plugin.h2.server.host";
-    public static final String LAB_SERVER_PORT = "plugin.h2.server.port";
-    public static final String LAB_USER = "plugin.h2.user";
+    public static final String HIBERNATE_DIALECT = "org.hibernate.dialect.H2Dialect";
+    public static final String H2_DRIVER = "org.h2.Driver";
 }
